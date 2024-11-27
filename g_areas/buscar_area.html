@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscar trabajador</title>
+    <title>Buscar Área</title>
 </head>
 <body>
     <nav>
@@ -11,5 +11,35 @@
             <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
         </ul>
     </nav>
+    <h1>Buscar Área</h1>
+    <input type="text" id="buscarInput" placeholder="Buscar área por nombre">
+    <button id="buscarBtn">Buscar</button>
+
+    <ul id="resultadosLista"></ul>
+
+    <script src="/js/crud_area.js"></script>
+    <script>
+        const buscarInput = document.getElementById("buscarInput");
+        const buscarBtn = document.getElementById("buscarBtn");
+        const resultadosLista = document.getElementById("resultadosLista");
+
+        buscarBtn.addEventListener("click", () => {
+            const query = buscarInput.value.trim();
+            const resultados = buscarAreaPorNombre(query);
+
+            // Mostrar resultados en la lista
+            resultadosLista.innerHTML = "";
+            if (resultados.length === 0) {
+                resultadosLista.innerHTML = "<li>No se encontraron resultados</li>";
+                return;
+            }
+
+            resultados.forEach(area => {
+                const li = document.createElement("li");
+                li.textContent = `ID: ${area.id} - Nombre: ${area.nombre}`;
+                resultadosLista.appendChild(li);
+            });
+        });
+    </script>
 </body>
 </html>

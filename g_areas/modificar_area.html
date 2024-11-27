@@ -11,5 +11,36 @@
             <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
         </ul>
     </nav>
+    
+    <h1>Actualizar Área</h1>
+    <form id="updateForm">
+        <input type="number" id="areaId" placeholder="ID del área" required>
+        <input type="text" id="areaNombre" placeholder="Nuevo nombre del área" required>
+        <button type="submit">Actualizar Área</button>
+    </form>
+
+    <script src="/js/crud_area.js"></script>
+    <script>
+        const form = document.getElementById("updateForm");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const id = parseInt(document.getElementById("areaId").value);
+            const nuevoNombre = document.getElementById("areaNombre").value;
+
+            if (isNaN(id)) {
+                console.error("Por favor, ingrese un ID válido.");
+                return;
+            }
+
+            const updatedItem = { id, nombre: nuevoNombre };
+            updateItem(id, updatedItem);
+            document.getElementById("areaId").value = "";
+            document.getElementById("areaNombre").value = "";
+        });
+    </script>
+</body>
+</html>
+
 </body>
 </html>

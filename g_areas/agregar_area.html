@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/">
-    <title>Agregar trabajador</title>
+    <title>Agregar Área</title>
 </head>
 <body>
     <nav>
@@ -12,5 +11,34 @@
             <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
         </ul>
     </nav>
+    <div>
+        <h2>Agregar nueva área</h2>
+        <form id="createForm">
+            <input type="number" id="areaId" placeholder="ID del área" required>
+            <input type="text" id="areaNombre" placeholder="Nombre del área" required>
+            <button type="submit">Agregar Área</button>
+        </form>
+    </div>
+
+    <script src="/js/crud_area.js"></script>
+    <script>
+        const createForm = document.getElementById("createForm");
+
+        createForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const id = parseInt(document.getElementById("areaId").value);
+            const nombre = document.getElementById("areaNombre").value.trim();
+
+            if (!id || !nombre) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            } else {
+                alert(`Área con creada.`);
+            }
+
+            createItemConIdYNombre(id, nombre);
+            createForm.reset(); // Limpiar formulario
+        });
+    </script>
 </body>
 </html>

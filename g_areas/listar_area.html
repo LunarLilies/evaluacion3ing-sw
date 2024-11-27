@@ -11,5 +11,31 @@
             <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
         </ul>
     </nav>
+    
+    <h1>Lista de Áreas</h1>
+    <ul id="areasLista"></ul>
+
+    <script src="/js/crud_area.js"></script>
+    <script>
+        function listarAreas() {
+            const areasLista = document.getElementById("areasLista");
+            areasLista.innerHTML = "";
+
+            datos_areas.forEach(area => {
+                const li = document.createElement("li");
+                li.textContent = `ID: ${area.id} - Nombre: ${area.nombre}`;
+                areasLista.appendChild(li);
+            });
+
+            if (datos_areas.length === 0) {
+                areasLista.innerHTML = "<li>No hay áreas registradas</li>";
+            }
+        }
+
+        listarAreas();
+    </script>
+</body>
+</html>
+
 </body>
 </html>
