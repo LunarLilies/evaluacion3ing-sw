@@ -46,3 +46,19 @@ div ul li {
     padding-top: 1rem;
     margin-left: -2rem;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+table th, table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+table th {
+    background-color: #f3f3f3;
+}

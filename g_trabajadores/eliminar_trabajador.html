@@ -4,12 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar trabajador</title>
+    <link rel="stylesheet" href="/css/gestion.css">
+
 </head>
 <body>
     <nav>
-        <ul>
-            <li><a href="/html/ges_trabajadores.html">Volver a gestionar trabajadores</a></li>
-        </ul>
+        <li>
+            <a href="ges_cargo.html">Gestión de cargos</a>
+            <a href="ges_areas.html">Gestión de áreas</a>
+            <a href="cerrar_sesion.html">Cerrar sesión</a>
+        </li>
     </nav>
+    <div>
+        <h3>Eliminar Trabajador</h3>
+        <ul>
+            <li>
+                <input type="number" id="trabajadorId" placeholder="ID del trabajador" required>
+            </li>
+            <li>
+                <input type="text" id="trabajadorNombre" placeholder="Nombre del trabajador" required>
+            </li>
+            <li>
+                <input type="text" id="trabajadorRut" placeholder="Rut del trabajador">
+            </li>
+            <li>
+                <button type="submit">Eliminar</button>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
