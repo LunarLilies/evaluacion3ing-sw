@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/crud_area.js"></script>
     <title>Eliminar Área</title>
 </head>
 <body>
@@ -15,20 +16,18 @@
     <input type="number" id="deleteId" placeholder="ID del área a eliminar" required>
     <button id="deleteButton">Eliminar</button>
 
-    <script src="/js/crud_area.js"></script>
     <script>
         const deleteButton = document.getElementById("deleteButton");
         deleteButton.addEventListener("click", () => {
             const deleteId = document.getElementById("deleteId").value;
-            const index = datos_areas.findIndex(area => area.id === Number(deleteId));
-
-            if (index !== -1) {
-                deleteItem(index);
-                alert(`Área con ID ${deleteId} eliminada.`);
+            if (deleteId) {
+                const id = Number(deleteId);
+                deleteItem(id);
             } else {
-                alert("Área no encontrada o ID no válido.");
+                alert("Por favor, ingrese un ID válido.");
             }
         });
-    </script>
+    </script>    
 </body>
 </html>
+

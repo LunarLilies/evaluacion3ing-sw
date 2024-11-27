@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/crud_area.js"></script>
     <title>Modificar trabajadores</title>
 </head>
 <body>
@@ -18,29 +19,16 @@
         <input type="text" id="areaNombre" placeholder="Nuevo nombre del área" required>
         <button type="submit">Actualizar Área</button>
     </form>
-
-    <script src="/js/crud_area.js"></script>
+    
     <script>
         const form = document.getElementById("updateForm");
-
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            const id = parseInt(document.getElementById("areaId").value);
-            const nuevoNombre = document.getElementById("areaNombre").value;
-
-            if (isNaN(id)) {
-                console.error("Por favor, ingrese un ID válido.");
-                return;
-            }
-
-            const updatedItem = { id, nombre: nuevoNombre };
-            updateItem(id, updatedItem);
-            document.getElementById("areaId").value = "";
-            document.getElementById("areaNombre").value = "";
+            const areaId = parseInt(document.getElementById("areaId").value);
+            const newNombre = document.getElementById("areaNombre").value;
+            updateItemById(areaId, newNombre);
         });
     </script>
-</body>
-</html>
-
+    
 </body>
 </html>

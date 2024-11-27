@@ -11,35 +11,50 @@
             <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
         </ul>
     </nav>
-    <h1>Buscar Área</h1>
-    <input type="text" id="buscarInput" placeholder="Buscar área por nombre">
-    <button id="buscarBtn">Buscar</button>
+    <h1>Buscar áreas por ID o nombre</h1>
+    <form id="buscarForm">
+        <input type="number" id="buscarId" placeholder="Buscar por ID" min="0"><br><br>
+        <input type="text" id="buscarNombre" placeholder="Buscar por nombre">
+        <button type="submit">Buscar</button>
+    </form>
 
-    <ul id="resultadosLista"></ul>
-
+    <div id="resultadoBusqueda"></div>
     <script src="/js/crud_area.js"></script>
     <script>
-        const buscarInput = document.getElementById("buscarInput");
-        const buscarBtn = document.getElementById("buscarBtn");
-        const resultadosLista = document.getElementById("resultadosLista");
-
-        buscarBtn.addEventListener("click", () => {
-            const query = buscarInput.value.trim();
-            const resultados = buscarAreaPorNombre(query);
-
-            // Mostrar resultados en la lista
-            resultadosLista.innerHTML = "";
-            if (resultados.length === 0) {
-                resultadosLista.innerHTML = "<li>No se encontraron resultados</li>";
-                return;
+        document.getElementById("buscarForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById("buscarId").value);
+            const nombre = document.getElementById("buscarNombre").value.trim();
+            console.log("Formulario de búsqueda enviado.");
+            console.log("ID ingresado:", id);
+            console.log("Nombre ingresado:", nombre);
+        
+            let resultado = [];
+        
+            if (!isNaN(id)) {
+                const area = buscarAreaPorId(id);
+                if (area) {
+                    resultado.push(area);
+                }
             }
-
-            resultados.forEach(area => {
-                const li = document.createElement("li");
-                li.textContent = `ID: ${area.id} - Nombre: ${area.nombre}`;
-                resultadosLista.appendChild(li);
-            });
+        
+            if (nombre) {
+                const areasPorNombre = buscarAreaPorNombre(nombre);
+                resultado = resultado.concat(areasPorNombre);
+            }
+        
+            const resultadoDiv = document.getElementById("resultadoBusqueda");
+            resultadoDiv.innerHTML = "";
+        
+            if (resultado.length > 0) {
+                resultadoDiv.innerHTML = "<h3>Resultados de la búsqueda:</h3>";
+                resultado.forEach(area => {
+                    resultadoDiv.innerHTML += `<p>ID: ${area.id}, Nombre: ${area.nombre}</p>`;
+                });
+            } else {
+                resultadoDiv.innerHTML = "<p>No se encontraron áreas que coincidan con los criterios de búsqueda.</p>";
+            }
         });
+        
     </script>
-</body>
 </html>

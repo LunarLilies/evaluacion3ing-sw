@@ -17,6 +17,7 @@ function saveToLocalStorage() {
 function createItemConIdYNombre(id, nombre) {
     if (datos_areas.some(area => area.id === id)) {
         console.error(`El ID ${id} ya existe. No se puede duplicar.`);
+        alert("El ID ya existe, no se puede duplicar.");
         return;
     }
 
@@ -24,47 +25,62 @@ function createItemConIdYNombre(id, nombre) {
     datos_areas.push(newItem);
     console.log("Área creada:", newItem);
     saveToLocalStorage();
+    alert(`Área nueva creada.`);
 }
 
 // Leer todas las áreas
 function readItems() {
     console.clear();
-    datos_areas.forEach((item, index) => {
-        console.log(`ID: ${index}, Área:`, item);
+    datos_areas.forEach((item) => {
+        console.log(`ID: ${item.id}, Área:`, item);
     });
 }
 
-// Actualizar un área
-function updateItem(index, newItem) {
-    if (datos_areas[index]) {
-        datos_areas[index] = newItem;
-        console.log(`Item actualizado en índice ${index}:`, newItem);
+// Actualizar un área por ID
+function updateItemById(id, newNombre) {
+    const item = datos_areas.find(area => area.id === id);
+    if (item) {
+        item.nombre = newNombre;
+        console.log(`Área actualizada:`, item);
         saveToLocalStorage();
+        alert(`Área con ID ${id} ha sido actualizada a "${newNombre}".`);
     } else {
-        console.error("Índice no válido.");
+        console.error("ID no encontrado.");
+        alert(`No se encontró un área con ID ${id}.`);
     }
 }
 
-// Eliminar área
-function deleteItem(index) {
-    if (index >= 0 && index < datos_areas.length) {
-        const deletedItem = datos_areas.splice(index, 1);
+// Eliminar un área por ID
+function deleteItem(id) {
+    const itemIndex = datos_areas.findIndex(area => area.id === id);
+    if (itemIndex !== -1) {
+        const deletedItem = datos_areas.splice(itemIndex, 1);
         console.log("Área eliminada:", deletedItem);
         saveToLocalStorage();
+        alert(`Área con ID ${id} ha sido eliminada.`);
     } else {
-        console.error("Índice no válido.");
+        console.error("ID no válido.");
+        alert(`No se encontró un área con ID ${id} para eliminar.`);
     }
 }
 
 // Buscar área por nombre
 function buscarAreaPorNombre(nombre) {
-    return datos_areas.filter(area => area.nombre.toLowerCase().includes(nombre.toLowerCase()));
+    console.log(`Buscando áreas por nombre: ${nombre}`);
+    const resultados = datos_areas.filter(area => area.nombre.toLowerCase().includes(nombre.toLowerCase()));
+    console.log("Resultados de la búsqueda por nombre:", resultados);
+    return resultados;
 }
 
 // Buscar área por ID
 function buscarAreaPorId(id) {
-    return datos_areas.find(area => area.id === id);
+    console.log(`Buscando área por ID: ${id}`);
+    const resultado = datos_areas.find(area => area.id === id);
+    console.log("Resultado de la búsqueda por ID:", resultado);
+    return resultado;
 }
+
 
 // Cargar datos al iniciar la página
 loadFromLocalStorage();
+
