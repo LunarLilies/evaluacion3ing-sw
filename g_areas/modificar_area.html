@@ -3,44 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar trabajadores</title>
+    <title>Modificar Área</title>
+    <link rel="stylesheet" href="/css/gestion.css">
 </head>
 <body>
     <nav>
-        <ul>
-            <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
-        </ul>
+        <li>
+            <a href="/html/ges_areas.html">Volver a gestionar áreas</a>
+        </li>
     </nav>
     
-    <h1>Actualizar Área</h1>
-    <form id="updateForm">
-        <input type="number" id="areaId" placeholder="ID del área" required>
-        <input type="text" id="areaNombre" placeholder="Nuevo nombre del área" required>
-        <button type="submit">Actualizar Área</button>
-    </form>
+    <div>
+        <h3>Actualizar un área</h3>
+        <ul>
+            <form id="updateForm">
+                <li>
+                    <input type="number" id="areaId" placeholder="ID del área" required>
+                </li>
+                <li>
+                    <input type="text" id="areaNombre" placeholder="Nuevo nombre del área" required>
+                </li>
+                <li>
+                    <button type="submit">Actualizar Área</button>
+                </li>
+            </form>
+        </ul>
+    </div>
 
     <script src="/js/crud_area.js"></script>
     <script>
         const form = document.getElementById("updateForm");
-
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            const id = parseInt(document.getElementById("areaId").value);
-            const nuevoNombre = document.getElementById("areaNombre").value;
+            const areaId = parseInt(document.getElementById("areaId").value);
+            const newNombre = document.getElementById("areaNombre").value.trim();
 
-            if (isNaN(id)) {
-                console.error("Por favor, ingrese un ID válido.");
+            if (!areaId || !newNombre) {
+                alert("Por favor, completa todos los campos.");
                 return;
             }
 
-            const updatedItem = { id, nombre: nuevoNombre };
-            updateItem(id, updatedItem);
-            document.getElementById("areaId").value = "";
-            document.getElementById("areaNombre").value = "";
+            updateItemById(areaId, newNombre);
         });
     </script>
-</body>
-</html>
-
 </body>
 </html>

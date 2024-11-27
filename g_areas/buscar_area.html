@@ -4,41 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Área</title>
+    <link rel="stylesheet" href="/css/gestion.css">
 </head>
 <body>
     <nav>
-        <ul>
-            <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
-        </ul>
+        <li>
+            <a href="/html/ges_areas.html">Volver a gestionar áreas</a>
+        </li>
     </nav>
-    <h1>Buscar Área</h1>
-    <input type="text" id="buscarInput" placeholder="Buscar área por nombre">
-    <button id="buscarBtn">Buscar</button>
+    
+    <div>
+        <h3>Buscar un área</h3>
+        <ul>
+            <form id="buscarForm">
+                <li>
+                    <input type="number" id="buscarId" placeholder="Buscar por ID" min="0">
+                </li>
+                <li>
+                    <input type="text" id="buscarNombre" placeholder="Buscar por nombre">
+                </li>
+                <li>
+                    <button type="submit">Buscar Área</button>
+                </li>
+            </form>
+        </ul>
+    </div>
 
-    <ul id="resultadosLista"></ul>
+    <div id="resultadoBusqueda"></div>
 
     <script src="/js/crud_area.js"></script>
     <script>
-        const buscarInput = document.getElementById("buscarInput");
-        const buscarBtn = document.getElementById("buscarBtn");
-        const resultadosLista = document.getElementById("resultadosLista");
+        document.getElementById("buscarForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById("buscarId").value);
+            const nombre = document.getElementById("buscarNombre").value.trim();
 
-        buscarBtn.addEventListener("click", () => {
-            const query = buscarInput.value.trim();
-            const resultados = buscarAreaPorNombre(query);
+            let resultado = [];
 
-            // Mostrar resultados en la lista
-            resultadosLista.innerHTML = "";
-            if (resultados.length === 0) {
-                resultadosLista.innerHTML = "<li>No se encontraron resultados</li>";
-                return;
+            if (!isNaN(id)) {
+                const area = buscarAreaPorId(id);
+                if (area) {
+                    resultado.push(area);
+                }
             }
 
-            resultados.forEach(area => {
-                const li = document.createElement("li");
-                li.textContent = `ID: ${area.id} - Nombre: ${area.nombre}`;
-                resultadosLista.appendChild(li);
-            });
+            if (nombre) {
+                const areasPorNombre = buscarAreaPorNombre(nombre);
+                resultado = resultado.concat(areasPorNombre);
+            }
+
+            const resultadoDiv = document.getElementById("resultadoBusqueda");
+            resultadoDiv.innerHTML = "";
+
+            if (resultado.length > 0) {
+                resultadoDiv.innerHTML = "<h3>Resultados de la búsqueda:</h3>";
+                resultado.forEach(area => {
+                    resultadoDiv.innerHTML += `<p>ID: ${area.id}, Nombre: ${area.nombre}</p>`;
+                });
+            } else {
+                resultadoDiv.innerHTML = "<p>No se encontraron áreas que coincidan con los criterios de búsqueda.</p>";
+            }
         });
     </script>
 </body>

@@ -4,29 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Área</title>
+    <link rel="stylesheet" href="/css/gestion.css">
 </head>
 <body>
     <nav>
-        <ul>
-            <li><a href="/html/ges_areas.html">Volver a gestionar áreas</a></li>
-        </ul>
+        <li>
+            <a href="/html/ges_areas.html">Volver a gestionar áreas</a>
+        </li>
     </nav>
-    <h1>Eliminar Área</h1>
-    <input type="number" id="deleteId" placeholder="ID del área a eliminar" required>
-    <button id="deleteButton">Eliminar</button>
+    
+    <div>
+        <h3>Eliminar un área</h3>
+        <ul>
+            <li>
+                <input type="number" id="deleteId" placeholder="ID del área a eliminar" required>
+            </li>
+            <li>
+                <button id="deleteButton">Eliminar Área</button>
+            </li>
+        </ul>
+    </div>
 
     <script src="/js/crud_area.js"></script>
     <script>
         const deleteButton = document.getElementById("deleteButton");
         deleteButton.addEventListener("click", () => {
-            const deleteId = document.getElementById("deleteId").value;
-            const index = datos_areas.findIndex(area => area.id === Number(deleteId));
-
-            if (index !== -1) {
-                deleteItem(index);
-                alert(`Área con ID ${deleteId} eliminada.`);
+            const deleteId = parseInt(document.getElementById("deleteId").value);
+            if (!isNaN(deleteId)) {
+                deleteItem(deleteId);
             } else {
-                alert("Área no encontrada o ID no válido.");
+                alert("Por favor, ingresa un ID válido.");
             }
         });
     </script>

@@ -5,6 +5,9 @@ function loadFromLocalStorage() {
     const storedDatosAreas = localStorage.getItem("crudDatosAreas");
     if (storedDatosAreas) {
         datos_areas = JSON.parse(storedDatosAreas);
+        console.log("Datos cargados desde localStorage:", datos_areas);
+    } else {
+        console.warn("No se encontraron datos en localStorage.");
     }
 }
 
@@ -35,24 +38,32 @@ function readItems() {
 }
 
 // Actualizar un área
-function updateItem(index, newItem) {
-    if (datos_areas[index]) {
-        datos_areas[index] = newItem;
-        console.log(`Item actualizado en índice ${index}:`, newItem);
+function updateItemById(id, newNombre) {
+    id = Number(id); // Aseguramos que el ID sea un número
+    const item = datos_areas.find(area => area.id === id);
+    if (item) {
+        item.nombre = newNombre;
+        console.log(`Área actualizada:`, item);
         saveToLocalStorage();
+        alert(`Área con ID ${id} ha sido actualizada a "${newNombre}".`);
     } else {
-        console.error("Índice no válido.");
+        console.error("ID no encontrado.");
+        alert(`No se encontró un área con ID ${id}.`);
     }
 }
 
 // Eliminar área
-function deleteItem(index) {
-    if (index >= 0 && index < datos_areas.length) {
-        const deletedItem = datos_areas.splice(index, 1);
+function deleteItem(id) {
+    id = Number(id); // Aseguramos que el ID sea un número
+    const itemIndex = datos_areas.findIndex(area => area.id === id);
+    if (itemIndex !== -1) {
+        const deletedItem = datos_areas.splice(itemIndex, 1);
         console.log("Área eliminada:", deletedItem);
         saveToLocalStorage();
+        alert(`Área con ID ${id} ha sido eliminada.`);
     } else {
-        console.error("Índice no válido.");
+        console.error("ID no válido.");
+        alert(`No se encontró un área con ID ${id} para eliminar.`);
     }
 }
 
